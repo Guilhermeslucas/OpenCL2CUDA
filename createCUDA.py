@@ -2,6 +2,9 @@
 #code for this application will have the same extension as
 #before
 
+import os
+cuda_path = "./CUDA_Files/"
+
 #asks for target file, has to be opencl
 opencl_name = input("Whats the OpenCL file name? ")
 
@@ -23,11 +26,12 @@ except:
     exit()
 
 
-#if everything works, try to create the cuda file
+#if everything works, try to create the cuda file and directory
 cuda_name = ".".join([splited_name[0], "cu"])
-print(cuda_name)
+os.mkdir("CUDA_Files")
+
 try:
-    cuda_data = open(cuda_name, "w")
+    cuda_data = open(cuda_path + cuda_name, "w")
 
 except:
     print ("Not possible to create the file")
