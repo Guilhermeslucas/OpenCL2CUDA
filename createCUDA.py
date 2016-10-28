@@ -1,3 +1,7 @@
+#This code is used for converting kernels. The rest of the 
+#code for this application will have the same extension as
+#before
+
 #asks for target file, has to be opencl
 opencl_name = input("Whats the OpenCL file name? ")
 
