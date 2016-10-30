@@ -8,8 +8,8 @@ import os
 cuda_path = "./CUDA_Files/"
 
 #dictonary for substituitions on the kernel
-subs = {'__kernel':'__global__', '__global':'', 
-        'get_global_id': 'blockIdx * blockDim + threadIdx'}
+subs = {'__global':'', '__kernel':'__global__', 
+        'get_global_id(0)': 'blockIdx * blockDim + threadIdx'}
 
 #asks for target file, has to be opencl
 opencl_name = input("Whats the OpenCL  kernel file name? ")
@@ -23,8 +23,7 @@ if not((splited_name[1] == "cl")):
 
 #use with open for a more secure method
 try:
-    with open(opencl_name) as opencl_file:
-        opencl_data = opencl_file.read()
+    opencl_data = open(opencl_name, 'r') 
 
 #if something wrong happen, exit the code
 except:
@@ -43,6 +42,11 @@ except:
     print ("Not possible to create the file...")
     exit()
 
+#trying to substitute
+for line in opencl_data:
+    for key, value in subs.items():
+        line = line.replace(key,value)
+    cuda_data.write(line)
 
-print(opencl_data)
+opencl_data.close()
 cuda_data.close()
