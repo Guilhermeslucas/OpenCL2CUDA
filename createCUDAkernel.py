@@ -3,7 +3,13 @@
 #before
 
 import os
+
+#it will be used for creating a folder to put the files
 cuda_path = "./CUDA_Files/"
+
+#dictonary for substituitions on the kernel
+subs = {'__kernel':'__global__', '__global':'', 
+        'get_global_id': 'blockIdx * blockDim + threadIdx'}
 
 #asks for target file, has to be opencl
 opencl_name = input("Whats the OpenCL  kernel file name? ")
@@ -39,3 +45,4 @@ except:
 
 
 print(opencl_data)
+cuda_data.close()
