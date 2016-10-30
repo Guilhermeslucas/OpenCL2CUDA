@@ -42,7 +42,7 @@ except:
     print ("Not possible to create the file...")
     exit()
 
-#trying to substitute
+#replacing the dict items
 for line in opencl_data:
     for key, value in subs.items():
         line = line.replace(key,value)
