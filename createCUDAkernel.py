@@ -8,7 +8,7 @@ import os
 cuda_path = "./CUDA_Files/"
 
 #dictonary for substituitions on the kernel
-subs = {'__global':'', '__kernel':'__global__', 
+subs_cl = {'__global':'', '__kernel':'__global__', 
         'get_global_id(0)': 'blockIdx * blockDim + threadIdx'}
 
 #asks for target file, has to be opencl
@@ -44,7 +44,7 @@ except:
 
 #replacing the dict items
 for line in opencl_data:
-    for key, value in subs.items():
+    for key, value in subs_cl.items():
         line = line.replace(key,value)
     cuda_data.write(line)
 
