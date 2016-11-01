@@ -14,7 +14,7 @@ subs_cl = {'__global':' ',
 
 #asks for target file, has to be opencl
 opencl_name = input("Whats the OpenCL  kernel file name? ")
-#main_name = input("Whats the C/C++ file name? ")
+main_name = input("Whats the C/C++ file name? ")
 
 #checks if the name is indeed a .cl file
 splited_name_cl = opencl_name.split(".")
