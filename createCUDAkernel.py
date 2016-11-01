@@ -74,5 +74,7 @@ for line in opencl_data:
         line = line.replace(key,value)
     cuda_data.write(line)
 
+#closes everything
+main_data.close()
 opencl_data.close()
 cuda_data.close()
