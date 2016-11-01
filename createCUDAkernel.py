@@ -20,6 +20,7 @@ main_name = input("Whats the C/C++ file name? ")
 splited_name_cl = opencl_name.split(".")
 splited_name_main = main_name.split(".")
 
+#this part of the code checks the extensions of the files
 if not((splited_name_cl[1] == "cl")):
     print(opencl_name + " is not a valid name. Exiting... ")
     exit()
