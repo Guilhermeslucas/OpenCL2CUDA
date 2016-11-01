@@ -8,5 +8,3 @@ __kernel void vadd(__global float *a, __global float *b, __global float *c, cons
     c[id] = a[id] + b[id];
   }
 }
-
-
