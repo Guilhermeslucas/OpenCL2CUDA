@@ -16,9 +16,9 @@ opencl_name = input("Whats the OpenCL  kernel file name? ")
 main_name = input("Whats the C/C++ file name? ")
 
 #checks if the name is indeed a .cl file
-splited_name = opencl_name.split(".")
+splited_name_cl = opencl_name.split(".")
 
-if not((splited_name[1] == "cl")):
+if not((splited_name_cl[1] == "cl")):
     print(opencl_name + " is not a valid name. Exiting... ")
     exit()
 #i'm doing separated try/except in order to find the problems
@@ -33,7 +33,7 @@ except:
 
 
 #if everything works, try to create the cuda file and directory
-cuda_name = ".".join([splited_name[0], "cu"])
+cuda_name = ".".join([splited_name_cl[0], "cu"])
 os.mkdir("CUDA_Files")
 
 try:
