@@ -53,6 +53,7 @@ os.mkdir("CUDA_Files")
 #creating the main file to be the resulting one
 main_cuda_name = splited_name_main[0]+"_cuda."+splited_name_main[1]
 
+#try to create the file to be the main converted file
 try:
     main_data = open(cuda_path + main_cuda_name, "w")
 
@@ -60,7 +61,7 @@ except:
     print("Not possible to create main cuda file. Exiting... ")
     exit()
     
-
+#try to create the file to be the cuda kernel
 try:
     cuda_data = open(cuda_path + cuda_name, "w")
 
