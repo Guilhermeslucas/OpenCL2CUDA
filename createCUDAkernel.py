@@ -38,6 +38,7 @@ except:
     print ("Not possible to open the opencl kernel. Exiting...")
     exit()
 
+#try to open the main data to read
 try:
     main_data = open(main_name, 'r')
 
@@ -55,7 +56,7 @@ main_cuda_name = splited_name_main[0]+"_cuda."+splited_name_main[1]
 
 #try to create the file to be the main converted file
 try:
-    main_data = open(cuda_path + main_cuda_name, "w")
+    main_data_write = open(cuda_path + main_cuda_name, "w")
 
 except:
     print("Not possible to create main cuda file. Exiting... ")
@@ -79,3 +80,4 @@ for line in opencl_data:
 main_data.close()
 opencl_data.close()
 cuda_data.close()
+main_data_write.close()
