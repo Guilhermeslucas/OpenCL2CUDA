@@ -18,10 +18,16 @@ main_name = input("Whats the C/C++ file name? ")
 
 #checks if the name is indeed a .cl file
 splited_name_cl = opencl_name.split(".")
+splited_name_main = main_name.split(".")
 
 if not((splited_name_cl[1] == "cl")):
     print(opencl_name + " is not a valid name. Exiting... ")
     exit()
+
+if not((splited_name_main[1] == "c" or splited_name_main[1] == "cpp")):
+    print(main_name + "is not a valid name. Exiting... ")
+    exit()
+
 #i'm doing separated try/except in order to find the problems
 #use with open for a more secure method
 try:
@@ -29,7 +35,14 @@ try:
 
 #if something wrong happen, exit the code
 except:
-    print ("Not possible to open the file. Exiting...")
+    print ("Not possible to open the opencl kernel. Exiting...")
+    exit()
+
+try:
+    main_data = open(main_name, 'r')
+
+except:
+    print ("Not possible to open the main file to read. Exiting... ")
     exit()
 
 
@@ -37,11 +50,22 @@ except:
 cuda_name = ".".join([splited_name_cl[0], "cu"])
 os.mkdir("CUDA_Files")
 
+#creating the main file to be the resulting one
+main_cuda_name = splited_name_main[0]+"_cuda."+splited_name_main[1]
+
+try:
+    main_data = open(cuda_path + main_cuda_name, "w")
+
+except:
+    print("Not possible to create main cuda file. Exiting... ")
+    exit()
+    
+
 try:
     cuda_data = open(cuda_path + cuda_name, "w")
 
 except:
-    print ("Not possible to create the file...")
+    print ("Not possible to create the kernel file...")
     exit()
 
 #replacing the dict items
