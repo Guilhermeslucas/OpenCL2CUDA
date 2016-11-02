@@ -12,6 +12,9 @@ subs_cl = {'__global':' ',
             'get_global_id(0)': 'blockIdx * blockDim + threadIdx',
             '__kernel':'__global__'}
 
+#dictonary for changes on the main aplication
+subs_main  = {'clReleaseMemObject': 'cudaFree'}
+
 #asks for target file, has to be opencl
 opencl_name = input("Whats the OpenCL  kernel file name? ")
 main_name = input("Whats the C/C++ file name? ")
@@ -76,6 +79,13 @@ for line in opencl_data:
     for key, value in subs_cl.items():
         line = line.replace(key,value)
     cuda_data.write(line)
+
+#replacing the words on the main code
+for line in main_data:
+    for key, value in subs_main.items():
+        line = line.replace(key,value)
+    main_data_write.write(line)
+
 
 #closes everything
 main_data.close()
