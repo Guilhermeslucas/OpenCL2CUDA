@@ -13,7 +13,13 @@ subs_cl = {'__global':' ',
             '__kernel':'__global__'}
 
 #dictonary for changes on the main aplication
-subs_main  = {'clReleaseMemObject': 'cudaFree'}
+subs_main  = {'clReleaseMemObject': 'cudaFree',
+              'cl_device_id': 'CUdevice', 'cl_context': 'CUcontext',
+              'cl_program': 'CUmodule', 'cl_kernel': 'CUfunction',
+              'cl_mem': 'CUdeviceptr', 'get_num_goups()': 'gridDim',
+              'get_local_size()': 'blockDim', 
+              'get_group_id()': 'blockIDx', 
+              'get_local_id()': 'threadIdx'}
 
 #asks for target file, has to be opencl
 opencl_name = input("Whats the OpenCL  kernel file name? ")
