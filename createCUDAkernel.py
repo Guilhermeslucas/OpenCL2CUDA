@@ -12,6 +12,8 @@ subs_cl = {'__global':' ',
             'get_global_id(0)': 'blockIdx * blockDim + threadIdx',
             '__kernel':'__global__'}
 
+#i'll have to review from griddim to threadidx
+
 #dictonary for changes on the main aplication
 subs_main  = {'clReleaseMemObject': 'cudaFree',
               'cl_device_id': 'CUdevice', 'cl_context': 'CUcontext',
@@ -19,7 +21,14 @@ subs_main  = {'clReleaseMemObject': 'cudaFree',
               'cl_mem': 'CUdeviceptr', 'get_num_goups()': 'gridDim',
               'get_local_size()': 'blockDim', 
               'get_group_id()': 'blockIDx', 
-              'get_local_id()': 'threadIdx'}
+              'get_local_id()': 'threadIdx',
+              'clGetContextInfo': 'cuDeviceGet',
+              'clCreateContextFromType':'cuCtxCreate',
+              'clCreateKernel': 'cuModuleGetFunction',
+              'clCreateBuffer': 'cuMemAlloc',
+              'clEnqueWriteBuffer': 'cuMemcpyHtoD',
+              'clSetKernelArg': 'cuParamSeti',
+              'clEnqueuedNDRangeKernel': 'cuLaunchGrid'}
 
 #asks for target file, has to be opencl
 opencl_name = input("Whats the OpenCL  kernel file name? ")
