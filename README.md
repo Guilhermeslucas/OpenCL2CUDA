@@ -15,3 +15,11 @@ Note: This is not a full converter (at least at this point).
 It just helps you with a lot of replacements, but you still need
 to look the generated files to ensure the full and correct work of
 your code.
+
+## Running the aplication
+I'm using python3 to run the code. All you have to do is:
+
+```
+python3 createCUDAkernel.py
+```
+
