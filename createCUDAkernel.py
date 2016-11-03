@@ -1,15 +1,11 @@
 #!/usr/bin/python3
 
-#This code is used for converting kernels. The rest of the 
-#code for this application will have the same extension as
-#before
-
 ######################################################################
-# Author: Guilherme Lucas da Silva email: guilherme.slucas@gmail.com 
-#
-# To do: - treat non direct equivalences
-#        - search for a license
-#        - treat the threads problem on the kernel subs    
+# Author: Guilherme Lucas da Silva email: guilherme.slucas@gmail.com #
+#                                                                    #
+# To do: - treat non direct equivalences                             #
+#        - search for a license                                      #
+#        - treat the threads problem on the kernel subs              #
 ###################################################################### 
 
 import os
