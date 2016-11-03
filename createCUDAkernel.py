@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 #This code is used for converting kernels. The rest of the 
 #code for this application will have the same extension as
 #before
@@ -76,21 +78,19 @@ except:
     print ("Not possible to open the main file to read. Exiting... ")
     exit()
 
-
 #if everything works, try to create the cuda file and directory
 cuda_name = ".".join([splited_name_cl[0], "cu"])
-
 
 try:
     os.mkdir("CUDA_Files_1")
 
 #iterates until find a valid name
 except:
-    print ("CUDA_Files_1 folder already exists.")
     folders = glob.glob("CUDA_Files*")
     folders = sorted(folders)
-    print(folders)
-    exit()
+    cuda_path = "./CUDA_Files_" + str(len(folders) + 1) + '/'
+    os.mkdir(cuda_path)
+    print("Your files will be created on " + cuda_path)
 
 #creating the main file to be the resulting one
 main_cuda_name = splited_name_main[0]+"_cuda."+splited_name_main[1]

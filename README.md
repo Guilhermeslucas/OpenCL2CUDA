@@ -21,5 +21,6 @@ I'm using python3 to run the code.
 All you have to do is(on GNU/Linux OS's):
 
 ```
-python3 createCUDAkernel.py
+chmod +x createCUDAkernel.py (just the first time)
+./createCUDAkernel.py
 ```
