@@ -9,5 +9,9 @@ The files I'm using for testing are in this repository:
 ```
 https://github.com/Guilhermeslucas/SDAccel_Examples
 ```
-
 You can find more examples there, if you want.
+
+Note: This is not a full converter (at least at this point).
+It just helps you with a lot of replacements, but you still need
+to look the generated files to ensure the full and correct work of
+your code.
