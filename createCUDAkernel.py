@@ -11,12 +11,10 @@
 ###################################################################### 
 
 import os
+import glob
 
 #it will be used for creating a folder to put the files
-cuda_path = "./CUDA_Files/"
-
-#now i'll have to figure out how to treat non-direct equivalences
-#should take a while
+cuda_path = "./CUDA_Files_1/"
 
 #dictonary for substituitions on the kernel
 subs_cl = {'__global':' ',
@@ -81,7 +79,18 @@ except:
 
 #if everything works, try to create the cuda file and directory
 cuda_name = ".".join([splited_name_cl[0], "cu"])
-os.mkdir("CUDA_Files")
+
+
+try:
+    os.mkdir("CUDA_Files_1")
+
+#iterates until find a valid name
+except:
+    print ("CUDA_Files_1 folder already exists.")
+    folders = glob.glob("CUDA_Files*")
+    folders = sorted(folders)
+    print(folders)
+    exit()
 
 #creating the main file to be the resulting one
 main_cuda_name = splited_name_main[0]+"_cuda."+splited_name_main[1]

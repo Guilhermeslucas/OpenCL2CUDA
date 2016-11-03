@@ -1,0 +1,4 @@
+open.cl
+opencl-app.c
+CUDA_Files*/
+*.swp

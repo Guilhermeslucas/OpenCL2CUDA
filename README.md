@@ -23,4 +23,3 @@ All you have to do is(on GNU/Linux OS's):
 ```
 python3 createCUDAkernel.py
 ```
-
