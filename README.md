@@ -17,7 +17,8 @@ to look the generated files to ensure the full and correct work of
 your code.
 
 ## Running the aplication
-I'm using python3 to run the code. All you have to do is:
+I'm using python3 to run the code. 
+All you have to do is(on GNU/Linux OS's):
 
 ```
 python3 createCUDAkernel.py
