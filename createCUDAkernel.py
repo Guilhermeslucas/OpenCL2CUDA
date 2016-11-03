@@ -2,10 +2,20 @@
 #code for this application will have the same extension as
 #before
 
+######################################################################
+# Author: Guilherme Lucas da Silva email: guilherme.slucas@gmail.com 
+#
+# To do: - treat non direct equivalences
+#        - search for a license
+###################################################################### 
+
 import os
 
 #it will be used for creating a folder to put the files
 cuda_path = "./CUDA_Files/"
+
+#now i'll have to figure out how to treat non-direct equivalences
+#should take a while
 
 #dictonary for substituitions on the kernel
 subs_cl = {'__global':' ',
@@ -14,7 +24,7 @@ subs_cl = {'__global':' ',
             'get_local_size(0)': 'blockDim', 
             'get_group_id(0)': 'blockIdx','get_local_id':'threadIdx'}
 
-#i'll have to review from griddim to threadidx
+#i'll have to review from griddim to threadid
 
 #dictonary for changes on the main aplication
 subs_main  = {'clReleaseMemObject': 'cudaFree',
