@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 
 ######################################################################
-# Author: Guilherme Lucas da Silva email: guilherme.slucas@gmail.com #
-#                                                                    #
 # To do: - treat non direct equivalences                             #
 #        - search for a license                                      #
 #        - treat the threads problem on the kernel subs              #
