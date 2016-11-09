@@ -35,7 +35,9 @@ cuda_path = "./CUDA_Files_1/"
 #dictonary for substituitions on the kernel
 subs_cl = {'__global':' ',
             'get_global_id(0)': 'blockIdx * blockDim + threadIdx',
-            '__kernel':'__global__', 'get_num_groups(0)':'gridDim',
+            '__kernel':'__global__', 'get_num_groups(0)':'gridDim.x',
+            'get_num_groups(1)': 'gridDim.y', 
+            'get_num_groups(2)': 'gridDim.z',
             'get_local_size(0)': 'blockDim', 
             'get_group_id(0)': 'blockIdx','get_local_id':'threadIdx'}
 
