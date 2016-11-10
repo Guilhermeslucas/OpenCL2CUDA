@@ -20,7 +20,6 @@
 
 ######################################################################
 # To do: - treat non direct equivalences                             #
-#        - treat the threads problem on the kernel subs              #
 ###################################################################### 
 
 import argparse
@@ -33,9 +32,10 @@ print ("Beginning of the Script")
 cuda_path = "./CUDA_Files_1/"
 
 #dictonary for substituitions on the kernel
-subs_cl = {'__global':' ',
+#so hardcoded, i'll change it later
+subs_cl = {'__global ':' ',
             'get_global_id(0)': 'blockIdx * blockDim + threadIdx',
-            '__kernel':'__global__', 'get_num_groups(0)':'gridDim.x',
+            'get_num_groups(0)':'gridDim.x',
             'get_num_groups(1)': 'gridDim.y', 
             'get_num_groups(2)': 'gridDim.z',
             'get_local_size(0)': 'blockDim.x',
@@ -44,7 +44,7 @@ subs_cl = {'__global':' ',
             'get_group_id(0)': 'blockIdx.x',
             'get_group_id(1)': 'blockIdx.y',
             'get_group_id(2)': 'blockIdx.z',
-            'get_local_id':'threadIdx'}
+            'get_local_id':'threadIdx', '__kernel':'__global__'}
 
 #dictonary for changes on the main aplication
 #kind of big, I intend to change this later
@@ -118,7 +118,7 @@ except:
     folders = sorted(folders)
     cuda_path = "./CUDA_Files_" + str(len(folders) + 1) + '/'
     os.mkdir(cuda_path)
-    print("Your files will be created on " + cuda_path)
+    print("Your files will be created on folder "+cuda_path.split("/")[1])
 
 #creating the main file to be the resulting one
 main_cuda_name = splited_name_main[0]+"_cuda."+splited_name_main[1]
