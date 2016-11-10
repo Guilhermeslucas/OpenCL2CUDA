@@ -22,5 +22,5 @@ All you have to do is(on GNU/Linux OS's):
 
 ```
 chmod +x createCUDAkernel.py (just the first time)
-./createCUDAkernel.py
+./createCUDAkernel.py --opencl_name="name of the opencl file" --main_name="name of the C/C++ file"
 ```
