@@ -47,6 +47,7 @@ subs_cl = {'__global':' ',
             'get_local_id':'threadIdx'}
 
 #dictonary for changes on the main aplication
+#kind of big, I intend to change this later
 subs_main  = {'clReleaseMemObject': 'cudaFree',
               'cl_device_id': 'CUdevice', 'cl_context': 'CUcontext',
               'cl_program': 'CUmodule', 'cl_kernel': 'CUfunction',
@@ -60,7 +61,9 @@ subs_main  = {'clReleaseMemObject': 'cudaFree',
               'clCreateBuffer': 'cuMemAlloc',
               'clEnqueWriteBuffer': 'cuMemcpyHtoD',
               'clSetKernelArg': 'cuParamSeti',
-              'clEnqueuedNDRangeKernel': 'cuLaunchGrid'}
+              'clEnqueuedNDRangeKernel': 'cuLaunchGrid',
+              'cl_command_queue': 'cudaStream_t', 'cl_event': 'cudaEvent_t',
+              'cl_image_format': 'cudaChannelFormatDesc'}
 
 #Uses argparse to receive the input information
 parser = argparse.ArgumentParser()
