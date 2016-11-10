@@ -23,10 +23,11 @@
 #        - treat the threads problem on the kernel subs              #
 ###################################################################### 
 
+import argparse
 import os
 import glob
 
-print ("This is a simple OpenCL to CUDA converter")
+print ("Beginning of the Script")
 
 #it will be used for creating a folder to put the files
 cuda_path = "./CUDA_Files_1/"
@@ -40,9 +41,10 @@ subs_cl = {'__global':' ',
             'get_local_size(0)': 'blockDim.x',
             'get_local_size(1)': 'blockDim.y',
             'get_local_size(2)': 'blockDim.z', 
-            'get_group_id(0)': 'blockIdx','get_local_id':'threadIdx'}
-
-#i'll have to review from griddim to threadid
+            'get_group_id(0)': 'blockIdx.x',
+            'get_group_id(1)': 'blockIdx.y',
+            'get_group_id(2)': 'blockIdx.z',
+            'get_local_id':'threadIdx'}
 
 #dictonary for changes on the main aplication
 subs_main  = {'clReleaseMemObject': 'cudaFree',
@@ -60,27 +62,33 @@ subs_main  = {'clReleaseMemObject': 'cudaFree',
               'clSetKernelArg': 'cuParamSeti',
               'clEnqueuedNDRangeKernel': 'cuLaunchGrid'}
 
-#asks for target file, has to be opencl
-opencl_name = input("Whats the OpenCL  kernel file name? ")
-main_name = input("Whats the C/C++ file name? ")
+#Uses argparse to receive the input information
+parser = argparse.ArgumentParser()
+parser.add_argument('--opencl_name', type=str, default='none',
+                    help='Whats the CL kernel file name? ')
+
+parser.add_argument('--main_name', type=str, default='none',
+                    help='Whats the C/C++ file name? ')
+
+args = parser.parse_args()
 
 #checks if the name is indeed a .cl file
-splited_name_cl = opencl_name.split(".")
-splited_name_main = main_name.split(".")
+splited_name_cl = args.opencl_name.split(".")
+splited_name_main = args.main_name.split(".")
 
 #this part of the code checks the extensions of the files
 if not((splited_name_cl[1] == "cl")):
-    print(opencl_name + " is not a valid name. Exiting... ")
+    print(args.opencl_name + " is not a valid name. Exiting... ")
     exit()
 
 if not((splited_name_main[1] == "c" or splited_name_main[1] == "cpp")):
-    print(main_name + "is not a valid name. Exiting... ")
+    print(args.main_name + "is not a valid name. Exiting... ")
     exit()
 
 #i'm doing separated try/except in order to find the problems
 #use with open for a more secure method
 try:
-    opencl_data = open(opencl_name, 'r') 
+    opencl_data = open(args.opencl_name, 'r') 
 
 #if something wrong happen, exit the code
 except:
@@ -89,7 +97,7 @@ except:
 
 #try to open the main data to read
 try:
-    main_data = open(main_name, 'r')
+    main_data = open(args.main_name, 'r')
 
 except:
     print ("Not possible to open the main file to read. Exiting... ")
@@ -146,3 +154,5 @@ main_data.close()
 opencl_data.close()
 cuda_data.close()
 main_data_write.close()
+
+print("Everything worked well")
