@@ -18,7 +18,7 @@ your code.
 
 ## Running the aplication
 I'm using python3 to run the code. 
-All you have to do is(on GNU/Linux OS's):
+All you have to do is (on GNU/Linux OS's):
 
 ```
 chmod +x createCUDAkernel.py (just the first time)
