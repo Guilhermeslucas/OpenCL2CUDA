@@ -27,7 +27,6 @@ import os
 import glob
 
 print ("This is a simple OpenCL to CUDA converter")
-print (" ")
 
 #it will be used for creating a folder to put the files
 cuda_path = "./CUDA_Files_1/"
