@@ -38,7 +38,9 @@ subs_cl = {'__global':' ',
             '__kernel':'__global__', 'get_num_groups(0)':'gridDim.x',
             'get_num_groups(1)': 'gridDim.y', 
             'get_num_groups(2)': 'gridDim.z',
-            'get_local_size(0)': 'blockDim', 
+            'get_local_size(0)': 'blockDim.x',
+            'get_local_size(1)': 'blockDim.y',
+            'get_local_size(2)': 'blockDim.z', 
             'get_group_id(0)': 'blockIdx','get_local_id':'threadIdx'}
 
 #i'll have to review from griddim to threadid
