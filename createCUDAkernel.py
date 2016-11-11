@@ -148,6 +148,10 @@ for line in opencl_data:
 #replacing the words on the main code
 for line in main_data:
     for key, value in subs_main.items():
+        #removing the include for opencl libraris. not the best way
+        if ('opencl.h' in line):
+            line = ' '
+            break
         line = line.replace(key,value)
     main_data_write.write(line)
 
@@ -159,3 +163,4 @@ cuda_data.close()
 main_data_write.close()
 
 print("Everything worked well")
+print("Don't forget to include library with -L and includes with -I for the CUDA path. Its usually on /usr/local/cuda/ ")
