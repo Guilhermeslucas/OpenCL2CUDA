@@ -148,7 +148,7 @@ for line in opencl_data:
 #replacing the words on the main code
 for line in main_data:
     for key, value in subs_main.items():
-        #removing the include for opencl libraris. not the best way
+        #removing the include opencl libraris. not the best way,but works
         if ('opencl.h' in line):
             line = ' '
             break
