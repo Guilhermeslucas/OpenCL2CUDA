@@ -121,7 +121,7 @@ except:
     print("Your files will be created on folder "+cuda_path.split("/")[1])
 
 #creating the main file to be the resulting one
-main_cuda_name = splited_name_main[0]+"_cuda."+splited_name_main[1]
+main_cuda_name = splited_name_main[0]+"_cuda.cu"
 
 #try to create the file to be the main converted file
 try:
