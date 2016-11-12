@@ -22,6 +22,30 @@
 # To do: - treat non direct equivalences                             #
 ###################################################################### 
 
+#create buffer is bit difference, so have to special treated
+def treat_createBuffer(line):
+    splited = line.split(',')
+    #one argument of cudaMalloc is the size, that is the third argument
+    #on createBuffer. we also have to allocate the variable name
+    size = splited[2]
+    #i have to do this to maintain identation
+    begin_line = ''
+    variable_name = ''
+    for char in list(splited[0]):
+        #no more indentation or variable name tobe construct
+        if (char == '='):
+            break
+        #contruct identation
+        elif (char == '\t' or char == ' '):
+            begin_line = begin_line + char
+        #construct variable name
+        else:
+            variable_name = variable_name + char
+    
+    #join all the characters that initiate the line
+    begin_line = ''.join(list(begin_line))
+    return begin_line + 'cudaMalloc(&' + variable_name + ',' + size + ')\n' 
+
 import argparse
 import os
 import glob
@@ -58,7 +82,6 @@ subs_main  = {'clReleaseMemObject': 'cudaFree',
               'clGetContextInfo': 'cuDeviceGet',
               'clCreateContextFromType':'cuCtxCreate',
               'clCreateKernel': 'cuModuleGetFunction',
-              'clCreateBuffer': 'cuMemAlloc',
               'clEnqueWriteBuffer': 'cuMemcpyHtoD',
               'clSetKernelArg': 'cuParamSeti',
               'clEnqueuedNDRangeKernel': 'cuLaunchGrid',
@@ -152,7 +175,11 @@ for line in main_data:
         if ('opencl.h' in line):
             line = ' '
             break
-        line = line.replace(key,value)
+        elif ('clCreateBuffer' in line):
+            line = treat_createBuffer(line)
+            break
+        else:
+            line = line.replace(key,value)
     main_data_write.write(line)
 
 
