@@ -22,14 +22,29 @@
 # To do: - treat non direct equivalences                             #
 ###################################################################### 
 
+import argparse
+import os
+import glob
+
+#list to place the memories that will be used to call kernel call
+device_memory = []
+
 #this is the function to treat the device memories that will
 #be passed to the kernel call
 def treat_deviceMemory(line):
     splited = line.split(',')
-    index = int(splited[1])
-    print ('Esse e o indice ' + str(index))
+    argument_index = int(splited[1])
     
-    #preciso tratar o problema e poder existir espaços
+    #this is kind of bad, i'll change this later
+    listed_variable = splited[3].split('&')
+    almost_parsed = listed_variable[len(listed_variable) - 1]
+    
+    #after spliting on &, the last element is the variable name, just
+    #nedd to find the ) to get the full variable name
+    variable_name = almost_parsed[0:almost_parsed.index(')')]
+    
+    #append in order to have all the argument name and position later
+    device_memory.append([argument_index,variable_name])
 
 #create buffer is bit difference, so have to special treated
 def treat_createBuffer(line):
@@ -55,15 +70,7 @@ def treat_createBuffer(line):
     begin_line = ''.join(list(begin_line))
     return begin_line + 'cudaMalloc(&' + variable_name + ',' + size + ')\n' 
 
-import argparse
-import os
-import glob
-
 print ("Beginning of the Script")
-
-#list to place the memories that will be used to call kernel call
-device_memory = []
-
 
 #it will be used for creating a folder to put the files
 cuda_path = "./CUDA_Files_1/"
@@ -199,6 +206,8 @@ for line in main_data:
             line = line.replace(key,value)
     main_data_write.write(line)
 
+#test part
+print (device_memory)
 
 #closes everything
 main_data.close()
