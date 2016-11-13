@@ -25,6 +25,7 @@
 import argparse
 import os
 import glob
+from operator import itemgetter
 
 #list to place the memories that will be used to call kernel call
 device_memory = []
@@ -207,7 +208,7 @@ for line in main_data:
     main_data_write.write(line)
 
 #test part
-print (device_memory[1][1])
+print (sorted(device_memory, key=itemgetter(0)))
 
 #closes everything
 main_data.close()
