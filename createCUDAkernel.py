@@ -22,6 +22,15 @@
 # To do: - treat non direct equivalences                             #
 ###################################################################### 
 
+#this is the function to treat the device memories that will
+#be passed to the kernel call
+def treat_deviceMemory(line):
+    splited = line.split(',')
+    index = int(splited[1])
+    print ('Esse e o indice ' + str(index))
+    
+    #preciso tratar o problema e poder existir espaços
+
 #create buffer is bit difference, so have to special treated
 def treat_createBuffer(line):
     splited = line.split(',')
@@ -51,6 +60,10 @@ import os
 import glob
 
 print ("Beginning of the Script")
+
+#list to place the memories that will be used to call kernel call
+device_memory = []
+
 
 #it will be used for creating a folder to put the files
 cuda_path = "./CUDA_Files_1/"
@@ -83,7 +96,6 @@ subs_main  = {'clReleaseMemObject': 'cudaFree',
               'clCreateContextFromType':'cuCtxCreate',
               'clCreateKernel': 'cuModuleGetFunction',
               'clEnqueWriteBuffer': 'cuMemcpyHtoD',
-              'clSetKernelArg': 'cuParamSeti',
               'clEnqueuedNDRangeKernel': 'cuLaunchGrid',
               'cl_command_queue': 'cudaStream_t', 'cl_event': 'cudaEvent_t',
               'cl_image_format': 'cudaChannelFormatDesc'}
@@ -177,6 +189,11 @@ for line in main_data:
             break
         elif ('clCreateBuffer' in line):
             line = treat_createBuffer(line)
+            break
+        #will be used to know the kernel call parameters
+        elif ('clSetKernelArg' in line):
+            treat_deviceMemory(line)
+            line = ' '
             break
         else:
             line = line.replace(key,value)
