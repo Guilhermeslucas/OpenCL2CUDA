@@ -207,7 +207,7 @@ for line in main_data:
     main_data_write.write(line)
 
 #test part
-print (device_memory)
+print (device_memory[1][1])
 
 #closes everything
 main_data.close()
