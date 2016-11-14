@@ -71,6 +71,11 @@ def treat_createBuffer(line):
     begin_line = ''.join(list(begin_line))
     return begin_line + 'cudaMalloc(&' + variable_name + ',' + size + ')\n' 
 
+def treat_createKernel(line):
+    splited = line.split(',')
+    kernel_name = splited[1].replace('"','')
+    return kernel_name
+
 print ("Beginning of the Script")
 
 #it will be used for creating a folder to put the files
@@ -203,12 +208,17 @@ for line in main_data:
             treat_deviceMemory(line)
             line = ' '
             break
+        elif ('clCreateKernel' in line):
+            kernel_name = treat_createKernel(line)
+            line = ' '
+            break
         else:
             line = line.replace(key,value)
     main_data_write.write(line)
 
 #test part
 print (sorted(device_memory, key=itemgetter(0)))
+print (kernel_name)
 
 #closes everything
 main_data.close()
