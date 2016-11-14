@@ -20,6 +20,8 @@
 
 ######################################################################
 # To do: - treat non direct equivalences                             #
+#        - kernell call (name,dim's, arguments)                      #
+#        - Copy from host, copy to host                              #
 ###################################################################### 
 
 import argparse
