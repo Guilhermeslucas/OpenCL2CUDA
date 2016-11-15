@@ -39,6 +39,8 @@ def treat_kernelCall(line,kernel_name,device_memory):
     print(splited)
     print(kernel_name)
     print(device_memory)
+    device_memory = sorted(device_memory, key=itemgetter(0))
+    print (device_memory)
 
 #this is the function to treat the device memories that will
 #be passed to the kernel call
@@ -231,10 +233,6 @@ for line in main_data:
         else:
             line = line.replace(key,value)
     main_data_write.write(line)
-
-#test part
-print (sorted(device_memory, key=itemgetter(0)))
-print (kernel_name)
 
 #closes everything
 main_data.close()
