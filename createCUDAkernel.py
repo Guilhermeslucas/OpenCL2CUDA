@@ -32,6 +32,14 @@ from operator import itemgetter
 #list to place the memories that will be used to call kernel call
 device_memory = []
 
+#function to crate the cuda kernell call 
+def treat_kernelCall(line,kernel_name,device_memory):
+    splited = line.split(',')
+    print('TTTTTTTTTTTTTTEEEEEEEEEEESSSSSSSSSSST')
+    print(splited)
+    print(kernel_name)
+    print(device_memory)
+
 #this is the function to treat the device memories that will
 #be passed to the kernel call
 def treat_deviceMemory(line):
@@ -201,6 +209,7 @@ for line in main_data:
         if ('opencl.h' in line):
             line = ' '
             break
+        #getting arguments for device
         elif ('clCreateBuffer' in line):
             line = treat_createBuffer(line)
             break
@@ -209,8 +218,14 @@ for line in main_data:
             treat_deviceMemory(line)
             line = ' '
             break
+        #getting kernel function name
         elif ('clCreateKernel' in line):
             kernel_name = treat_createKernel(line)
+            line = ' '
+            break
+        #creates the cuda kernell call
+        elif ('clEnqueueNDRangeKernel' in line):
+            line = treat_kernelCall(line, kernel_name, device_memory)
             line = ' '
             break
         else:
