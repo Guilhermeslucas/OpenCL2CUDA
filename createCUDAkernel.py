@@ -35,12 +35,21 @@ device_memory = []
 #function to crate the cuda kernell call 
 def treat_kernelCall(line,kernel_name,device_memory):
     splited = line.split(',')
-    print('TTTTTTTTTTTTTTEEEEEEEEEEESSSSSSSSSSST')
-    print(splited)
-    print(kernel_name)
-    print(device_memory)
     device_memory = sorted(device_memory, key=itemgetter(0))
-    print (device_memory)
+
+    #gets the grid and block size, to make the full kernel call
+    grid_size = splited[4].replace('&','')
+    block_size = splited[5].replace('&','')
+    
+    #this part is necessary to construct the arguments for kernel call
+    arguments = [] 
+    for index,argument in device_memory:
+        arguments.append(str(argument))
+    
+    #concatenates everything
+    arguments = ','.join(arguments)
+    
+    return (kernel_name+'<<<'+grid_size+','+block_size+'>>>('+arguments+')\n')
 
 #this is the function to treat the device memories that will
 #be passed to the kernel call
@@ -228,8 +237,8 @@ for line in main_data:
         #creates the cuda kernell call
         elif ('clEnqueueNDRangeKernel' in line):
             line = treat_kernelCall(line, kernel_name, device_memory)
-            line = ' '
             break
+        #else, just replace the words
         else:
             line = line.replace(key,value)
     main_data_write.write(line)
