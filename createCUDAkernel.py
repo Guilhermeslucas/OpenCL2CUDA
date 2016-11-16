@@ -20,7 +20,6 @@
 
 ######################################################################
 # To do: - treat non direct equivalences                             #
-#        - kernell call (name,dim's, arguments)                      #
 #        - Copy from host, copy to host                              #
 ###################################################################### 
 
@@ -41,6 +40,15 @@ def treat_kernelCall(line,kernel_name,device_memory):
     grid_size = splited[4].replace('&','')
     block_size = splited[5].replace('&','')
     
+    #to keep the code pretty, i'll have to maintain identation
+    begin = '' 
+    for char in list(splited[0]):
+        #if the character is a identing one, 
+        if (char == '\t' or char == ' '):
+            begin = begin + char
+        else:
+            break
+
     #this part is necessary to construct the arguments for kernel call
     arguments = [] 
     for index,argument in device_memory:
@@ -49,7 +57,7 @@ def treat_kernelCall(line,kernel_name,device_memory):
     #concatenates everything
     arguments = ','.join(arguments)
     
-    return (kernel_name+'<<<'+grid_size+','+block_size+'>>>('+arguments+')\n')
+    return (begin+kernel_name+'<<<'+grid_size+','+block_size+'>>>('+arguments+')\n')
 
 #this is the function to treat the device memories that will
 #be passed to the kernel call
