@@ -33,6 +33,23 @@ from operator import itemgetter
 #list to place the memories that will be used to call kernel call
 device_memory = []
 
+#function to treat the action of writing memory to device
+def treat_writeBuffer(line):
+    device_argument = line.split(',')[1]
+    host_argument = line.split(',')[5]
+    size = line.split(',')[4]
+
+    #gets the identing characters
+    begin = ''
+    for char in list(line.split(',')[0]):
+        if (char == '\t' or char == ' '):
+            begin = begin + char
+        else:
+            break
+
+    return (begin+'cudaMemcpy('+device_argument+','+host_argument+','+size+','+
+            'cudaMemcpyHostToDevice)\n')
+
 #function to crate the cuda kernell call 
 def treat_kernelCall(line,kernel_name,device_memory):
     splited = line.split(',')
@@ -138,7 +155,6 @@ subs_main  = {'clReleaseMemObject': 'cudaFree',
               'get_local_id()': 'threadIdx',
               'clGetContextInfo': 'cuDeviceGet',
               'clCreateContextFromType':'cuCtxCreate',
-              'clEnqueWriteBuffer': 'cuMemcpyHtoD',
               'cl_command_queue': 'cudaStream_t', 'cl_event': 'cudaEvent_t',
               'cl_image_format': 'cudaChannelFormatDesc'}
 
@@ -246,6 +262,10 @@ for line in main_data:
         #creates the cuda kernell call
         elif ('clEnqueueNDRangeKernel' in line):
             line = treat_kernelCall(line, kernel_name, device_memory)
+            break
+        #copying memory to device
+        elif ('clEnqueueWriteBuffer' in line):
+            line = treat_writeBuffer(line)
             break
         #else, just replace the words
         else:
