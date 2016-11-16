@@ -138,7 +138,6 @@ subs_main  = {'clReleaseMemObject': 'cudaFree',
               'clGetContextInfo': 'cuDeviceGet',
               'clCreateContextFromType':'cuCtxCreate',
               'clEnqueWriteBuffer': 'cuMemcpyHtoD',
-              'clEnqueuedNDRangeKernel': 'cuLaunchGrid',
               'cl_command_queue': 'cudaStream_t', 'cl_event': 'cudaEvent_t',
               'cl_image_format': 'cudaChannelFormatDesc'}
 
