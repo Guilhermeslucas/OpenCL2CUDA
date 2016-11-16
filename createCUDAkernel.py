@@ -22,7 +22,6 @@
 # To do: - treat non direct equivalences                             #
 #        - Decide what to do with unecessary OpenCL functions        #
 #        - treat kernel better                                       #
-#        - redo function to get the begining of line                 #
 ###################################################################### 
 
 import argparse
@@ -33,21 +32,25 @@ from operator import itemgetter
 #list to place the memories that will be used to call kernel call
 device_memory = []
 
+#function to get the begining of the line, without losing identation
+def get_begin(line):
+    begin = ''
+    for char in list(line):
+        if (char == '\t' or char == ' '):
+            begin = begin + char
+        else:
+            break
+
+    return begin
+
 #function to treat the function to bring the memory back to host
 def treat_readBuffer(line):
     device_argument = line.split(',')[1]
     host_argument = line.split(',')[5]
     size = line.split(',')[4]
 
-    #i'll make a function to stop repeating code later
-    begin = ''
-    #searching for identing characters
-    for char in list(line.split(',')[0]):
-        if (char == '\t' or char == ' '):
-            begin = begin + char
-        else:
-            break
-    
+    #keeping the identation
+    begin = get_begin(line)
     return(begin+'cudaMemcpy('+host_argument+','+','+device_argument+size+
             ',cudaMemcpyDeviceToHost );\n')
 
@@ -58,13 +61,7 @@ def treat_writeBuffer(line):
     size = line.split(',')[4]
 
     #gets the identing characters
-    begin = ''
-    for char in list(line.split(',')[0]):
-        if (char == '\t' or char == ' '):
-            begin = begin + char
-        else:
-            break
-
+    begin = get_begin(line)
     return (begin+'cudaMemcpy('+device_argument+','+host_argument+','+size+','+
             'cudaMemcpyHostToDevice);\n')
 
@@ -78,14 +75,8 @@ def treat_kernelCall(line,kernel_name,device_memory):
     block_size = splited[5].replace('&','')
     
     #to keep the code pretty, i'll have to maintain identation
-    begin = '' 
-    for char in list(splited[0]):
-        #if the character is a identing one, 
-        if (char == '\t' or char == ' '):
-            begin = begin + char
-        else:
-            break
-
+    begin = get_begin(line) 
+    
     #this part is necessary to construct the arguments for kernel call
     arguments = [] 
     for index,argument in device_memory:
