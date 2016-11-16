@@ -20,9 +20,9 @@
 
 ######################################################################
 # To do: - treat non direct equivalences                             #
-#        - Copy from host, copy to host                              #
 #        - Decide what to do with unecessary OpenCL functions        #
-#        - treat better kernel                                       #
+#        - treat kernel better                                       #
+#        - redo function to get the begining of line                 #
 ###################################################################### 
 
 import argparse
@@ -32,6 +32,24 @@ from operator import itemgetter
 
 #list to place the memories that will be used to call kernel call
 device_memory = []
+
+#function to treat the function to bring the memory back to host
+def treat_readBuffer(line):
+    device_argument = line.split(',')[1]
+    host_argument = line.split(',')[5]
+    size = line.split(',')[4]
+
+    #i'll make a function to stop repeating code later
+    begin = ''
+    #searching for identing characters
+    for char in list(line.split(',')[0]):
+        if (char == '\t' or char == ' '):
+            begin = begin + char
+        else:
+            break
+    
+    return(begin+'cudaMemcpy('+host_argument+','+','+device_argument+size+
+            ',cudaMemcpyDeviceToHost );\n')
 
 #function to treat the action of writing memory to device
 def treat_writeBuffer(line):
@@ -48,7 +66,7 @@ def treat_writeBuffer(line):
             break
 
     return (begin+'cudaMemcpy('+device_argument+','+host_argument+','+size+','+
-            'cudaMemcpyHostToDevice)\n')
+            'cudaMemcpyHostToDevice);\n')
 
 #function to crate the cuda kernell call 
 def treat_kernelCall(line,kernel_name,device_memory):
@@ -76,7 +94,7 @@ def treat_kernelCall(line,kernel_name,device_memory):
     #concatenates everything
     arguments = ','.join(arguments)
     
-    return (begin+kernel_name+'<<<'+grid_size+','+block_size+'>>>('+arguments+')\n')
+    return (begin+kernel_name+'<<<'+grid_size+','+block_size+'>>>('+arguments+');\n')
 
 #this is the function to treat the device memories that will
 #be passed to the kernel call
@@ -117,7 +135,7 @@ def treat_createBuffer(line):
     
     #join all the characters that initiate the line
     begin_line = ''.join(list(begin_line))
-    return begin_line + 'cudaMalloc(&' + variable_name + ',' + size + ')\n' 
+    return (begin_line + 'cudaMalloc(&' + variable_name + ',' + size + ');\n') 
 
 def treat_createKernel(line):
     splited = line.split(',')
@@ -266,6 +284,9 @@ for line in main_data:
         #copying memory to device
         elif ('clEnqueueWriteBuffer' in line):
             line = treat_writeBuffer(line)
+            break
+        elif ('clEnqueueReadBuffer' in line):
+            line = treat_readBuffer(line)
             break
         #else, just replace the words
         else:
