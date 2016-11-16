@@ -22,6 +22,7 @@
 # To do: - treat non direct equivalences                             #
 #        - Copy from host, copy to host                              #
 #        - Decide what to do with unecessary OpenCL functions        #
+#        - treat better kernel                                       #
 ###################################################################### 
 
 import argparse
