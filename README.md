@@ -4,6 +4,12 @@ apliccations to CUDA applications. At first, it will perform
 a bunch of changes in code, searching for OpenCL words and 
 writing its equivalent on .cu files.
 
+This is part of my work at the OpenPower Foundation Lab at
+Unicamp. More work avaiable at the following link:
+```
+http://openpower.ic.unicamp.br/
+```
+
 The files I'm using for testing are in this repository:
 
 ```
