@@ -285,7 +285,7 @@ for line in main_data:
         for key, value in equivalences.items():
             if (key in line):
                 line = ('//CUDA do not need ' + key +' , but you can use '+value+
-                        'in order to get a similar behaviour\n')
+                        'in order to get a similar behaviour \n')
                 break
     main_data_write.write(line)
 
