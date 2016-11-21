@@ -32,6 +32,14 @@ from operator import itemgetter
 #list to place the memories that will be used to call kernel call
 device_memory = []
 
+#function to find candidates for cl funtion that are not usable anymore
+def search_clPattern(line):
+    for i in range(2,len(line) - 2):
+        if (line[0+i:2+i] == 'cl'):
+            print ('AEEEEEEEEEEEEEEEE')
+    return line
+
+
 #function to get the begining of the line, without losing identation
 def get_begin(line):
     begin = ''
@@ -282,12 +290,17 @@ for line in main_data:
         line = line.replace('clReleaseMemObject','cudaFree')
     #else, just replace the words
     else:
+        #simple flag to decide whether enter the loop
+        found = 0
         for key, value in equivalences.items():
             if (key in line):
+                found = 1
                 begin = get_begin(line)
                 line = (begin+'//CUDA do not need ' + key +' , but you can use '
                         +value+' in order to get a similar behaviour \n')
                 break
+        if (found == 0):
+            line = search_clPattern(line)
     main_data_write.write(line)
 
 #closes everything
