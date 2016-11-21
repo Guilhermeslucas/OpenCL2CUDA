@@ -155,7 +155,7 @@ subs_cl = {'__global ':' ',
 
 #dictonary for changes on the main aplication
 #kind of big, I intend to change this later
-subs_main  = {'clReleaseMemObject': 'cudaFree',
+subs_main  = {
               'cl_device_id': 'CUdevice', 'cl_context': 'CUcontext',
               'cl_program': 'CUmodule', 'cl_kernel': 'CUfunction',
               'cl_mem': 'CUdeviceptr', 'get_num_goups()': 'gridDim',
@@ -278,6 +278,9 @@ for line in main_data:
             break
         elif ('clEnqueueReadBuffer' in line):
             line = treat_readBuffer(line)
+            break
+        elif('clReleaseMemObject' in line):
+            line = line.replace('clReleaseMemObject','cudaFree')
             break
         #else, just replace the words
         else:
