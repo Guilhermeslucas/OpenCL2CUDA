@@ -34,6 +34,7 @@ device_memory = []
 
 #function to find candidates for cl funtion that are not usable anymore
 #this is really bad, i'll change this later
+#CHANGE THIS AS SOON AS POSSIBLE
 def search_clPattern(line):
     for i in range(0,len(line) - 2):
         if (line[0+i:2+i] == 'cl'):
