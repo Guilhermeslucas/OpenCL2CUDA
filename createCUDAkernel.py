@@ -153,6 +153,7 @@ subs_cl = {'__global ':' ',
             'get_group_id(2)': 'blockIdx.z',
             'get_local_id':'threadIdx', '__kernel':'__global__'}
 
+#i'll get rid of this later, will keep so I do not loose track of what I'm doing
 #dictonary for changes on the main aplication
 #kind of big, I intend to change this later
 subs_main  = {
@@ -166,6 +167,10 @@ subs_main  = {
               'clCreateContextFromType':'cuCtxCreate',
               'cl_command_queue': 'cudaStream_t', 'cl_event': 'cudaEvent_t',
               'cl_image_format': 'cudaChannelFormatDesc'}
+
+equivalences = {'cl_device_id': 'CUdevice', 'cl_context': 'CUcontext',
+                'cl_program': 'CUmodule', 'cl_kernel ':'CUfunction',
+                'cl_command_queue':'cudaStream_t'}
 
 #Uses argparse to receive the input information
 parser = argparse.ArgumentParser()
@@ -249,42 +254,39 @@ for line in opencl_data:
 
 #replacing the words on the main code
 for line in main_data:
-    for key, value in subs_main.items():
-        #removing the include opencl libraris. not the best way,but works
-        if ('opencl.h' in line):
-            line = ' '
+    #removing the include opencl libraris. not the best way,but works
+    if ('opencl.h' in line):
+        line = ' '
+    #getting arguments for device
+    elif ('clCreateBuffer' in line):
+        line = treat_createBuffer(line)
+    #will be used to know the kernel call parameters
+    elif ('clSetKernelArg' in line):
+        treat_deviceMemory(line)
+        line = ' '
+    #getting kernel function name
+    elif ('clCreateKernel' in line):
+        kernel_name = treat_createKernel(line)
+        line = ' '
+    #creates the cuda kernell call
+    elif ('clEnqueueNDRangeKernel' in line):
+        line = treat_kernelCall(line, kernel_name, device_memory)
+    #copying memory to device
+    elif ('clEnqueueWriteBuffer' in line):
+        line = treat_writeBuffer(line)
+    #copying the results from the buffer
+    elif ('clEnqueueReadBuffer' in line):
+        line = treat_readBuffer(line)
+    #free memory device
+    elif('clReleaseMemObject' in line):
+        line = line.replace('clReleaseMemObject','cudaFree')
+    #else, just replace the words
+    else:
+        for key, value in equivalences.items():
+            if (key in line):
+                line = ('//CUDA do not need ' + key +' , but you can use '+value+
+                        'in order to get a similar behaviour\n')
             break
-        #getting arguments for device
-        elif ('clCreateBuffer' in line):
-            line = treat_createBuffer(line)
-            break
-        #will be used to know the kernel call parameters
-        elif ('clSetKernelArg' in line):
-            treat_deviceMemory(line)
-            line = ' '
-            break
-        #getting kernel function name
-        elif ('clCreateKernel' in line):
-            kernel_name = treat_createKernel(line)
-            line = ' '
-            break
-        #creates the cuda kernell call
-        elif ('clEnqueueNDRangeKernel' in line):
-            line = treat_kernelCall(line, kernel_name, device_memory)
-            break
-        #copying memory to device
-        elif ('clEnqueueWriteBuffer' in line):
-            line = treat_writeBuffer(line)
-            break
-        elif ('clEnqueueReadBuffer' in line):
-            line = treat_readBuffer(line)
-            break
-        elif('clReleaseMemObject' in line):
-            line = line.replace('clReleaseMemObject','cudaFree')
-            break
-        #else, just replace the words
-        else:
-            line = line.replace(key,value)
     main_data_write.write(line)
 
 #closes everything
