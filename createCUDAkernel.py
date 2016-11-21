@@ -33,10 +33,11 @@ from operator import itemgetter
 device_memory = []
 
 #function to find candidates for cl funtion that are not usable anymore
+#this is really bad, i'll change this later
 def search_clPattern(line):
-    for i in range(2,len(line) - 2):
+    for i in range(0,len(line) - 2):
         if (line[0+i:2+i] == 'cl'):
-            print ('AEEEEEEEEEEEEEEEE')
+            return ('//this looks like a CL function you do not need anymore.ignore if its a C function or its something you named\n'+line)
     return line
 
 
