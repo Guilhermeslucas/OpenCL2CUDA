@@ -30,3 +30,11 @@ All you have to do is (on GNU/Linux OS's):
 chmod +x createCUDAkernel.py (just the first time)
 ./createCUDAkernel.py --opencl_name="name of the opencl file" --main_name="name of the C/C++ file"
 ```
+
+Note: some of the changes on the main code are suggestions of, for example, 
+equivalences between OpenCL and CUDA or OpenCL functions that are not need anymore.
+To find these statements, you can use the search engine from your text editor and
+search for the word 
+```
+#translation#
+```

@@ -21,7 +21,6 @@
 ######################################################################
 # To do: - treat non direct equivalences                             #
 #        - treat kernel better                                       #
-#        - find where the functions where called                     #
 ###################################################################### 
 
 import argparse
