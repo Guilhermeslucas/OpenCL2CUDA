@@ -32,7 +32,6 @@ from operator import itemgetter
 device_memory = []
 
 #function to find candidates for cl funtion that are not usable anymore
-#TO DO 
 def search_clFunction(line):
     #trying to open the txt file with the functions names
     try: 
