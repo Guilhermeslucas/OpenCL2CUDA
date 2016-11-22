@@ -20,8 +20,8 @@
 
 ######################################################################
 # To do: - treat non direct equivalences                             #
-#        - Decide what to do with unecessary OpenCL functions        #
 #        - treat kernel better                                       #
+#        - find where the functions where called                     #
 ###################################################################### 
 
 import argparse
