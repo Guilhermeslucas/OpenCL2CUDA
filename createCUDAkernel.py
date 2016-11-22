@@ -35,8 +35,25 @@ device_memory = []
 #function to find candidates for cl funtion that are not usable anymore
 #TO DO 
 def search_clFunction(line):
-    return ' '
+    #trying to open the txt file with the functions names
+    try: 
+        cl_functions = open('cl_functions.txt', 'r')
+    except:
+        print ('File cl_functions.txt is not in the directory. Exiting...')
+        exit()
+    
+    #getting the beginning to keep identation
+    begin = line.get_begin(line)
+    
+    #search for candidates for cl functions
+    for cl_line in cl_functions:
+        #getting rid of \n in order to get the right equivalence
+        if (cl_line.replace('\n','') in line):
+            line = (begin+'//It looks like you dont need the function below anymore #translation#\n'+line)
+            break
 
+    cl_functions.close()
+    return line
 
 #function to get the begining of the line, without losing identation
 def get_begin(line):
@@ -295,7 +312,7 @@ for line in main_data:
                 found = 1
                 begin = get_begin(line)
                 line = (begin+'//CUDA do not need ' + key +' , but you can use '
-                        +value+' in order to get a similar behaviour \n')
+                        +value+' in order to get a similar behaviour #translation#\n')
                 break
         if (found == 0):
             line = search_clFunction(line)
