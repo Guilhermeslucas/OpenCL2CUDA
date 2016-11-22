@@ -33,13 +33,9 @@ from operator import itemgetter
 device_memory = []
 
 #function to find candidates for cl funtion that are not usable anymore
-#this is really bad, i'll change this later
-#CHANGE THIS AS SOON AS POSSIBLE
-def search_clPattern(line):
-    for i in range(0,len(line) - 2):
-        if (line[0+i:2+i] == 'cl'):
-            return ('//this looks like a CL function you do not need anymore.ignore if its a C function or its something you named\n'+line)
-    return line
+#TO DO 
+def search_clFunction(line):
+    return ' '
 
 
 #function to get the begining of the line, without losing identation
@@ -302,7 +298,7 @@ for line in main_data:
                         +value+' in order to get a similar behaviour \n')
                 break
         if (found == 0):
-            line = search_clPattern(line)
+            line = search_clFunction(line)
     main_data_write.write(line)
 
 #closes everything
