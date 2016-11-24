@@ -176,17 +176,17 @@ subs_cl = {'__global ':' ',
 #i'll get rid of this later, will keep so I do not loose track of what I'm doing
 #dictonary for changes on the main aplication
 #kind of big, I intend to change this later
-subs_main  = {
-              'cl_device_id': 'CUdevice', 'cl_context': 'CUcontext',
-              'cl_program': 'CUmodule', 'cl_kernel': 'CUfunction',
-              'cl_mem': 'CUdeviceptr', 'get_num_goups()': 'gridDim',
-              'get_local_size()': 'blockDim', 
-              'get_group_id()': 'blockIDx', 
-              'get_local_id()': 'threadIdx',
-              'clGetContextInfo': 'cuDeviceGet',
-              'clCreateContextFromType':'cuCtxCreate',
-              'cl_command_queue': 'cudaStream_t', 'cl_event': 'cudaEvent_t',
-              'cl_image_format': 'cudaChannelFormatDesc'}
+#subs_main  = {
+#              'cl_device_id': 'CUdevice', 'cl_context': 'CUcontext',
+#              'cl_program': 'CUmodule', 'cl_kernel': 'CUfunction',
+#              'cl_mem': 'CUdeviceptr', 'get_num_goups()': 'gridDim',
+#              'get_local_size()': 'blockDim', 
+#              'get_group_id()': 'blockIDx', 
+#              'get_local_id()': 'threadIdx',
+#              'clGetContextInfo': 'cuDeviceGet',
+#              'clCreateContextFromType':'cuCtxCreate',
+#              'cl_command_queue': 'cudaStream_t', 'cl_event': 'cudaEvent_t',
+#              'cl_image_format': 'cudaChannelFormatDesc'}
 
 equivalences = {'cl_device_id': 'CUdevice', 'cl_context': 'CUcontext',
                 'cl_program': 'CUmodule', 'cl_kernel ':'CUfunction',
