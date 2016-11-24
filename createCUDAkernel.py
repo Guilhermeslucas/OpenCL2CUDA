@@ -40,7 +40,7 @@ def search_clFunction(line):
         exit()
     
     #getting the beginning to keep identation
-    begin = line.get_begin(line)
+    begin = get_begin(line)
     
     #search for candidates for cl functions
     for cl_line in cl_functions:
@@ -162,6 +162,7 @@ cuda_path = "./CUDA_Files_1/"
 #so hardcoded, i'll change it later
 subs_cl = {'__global ':' ',
             'get_global_id(0)': 'blockIdx.x * blockDim.x + threadIdx.x',
+            'get_global_id(1)': 'blockIdx.y * blockDim.y + threadIdx.y',
             'get_num_groups(0)':'gridDim.x',
             'get_num_groups(1)': 'gridDim.y', 
             'get_num_groups(2)': 'gridDim.z',
