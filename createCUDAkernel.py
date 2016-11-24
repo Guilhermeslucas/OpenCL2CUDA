@@ -172,7 +172,8 @@ subs_cl = {'__global ':' ',
             'get_group_id(0)': 'blockIdx.x',
             'get_group_id(1)': 'blockIdx.y',
             'get_group_id(2)': 'blockIdx.z',
-            'get_local_id':'threadIdx', '__kernel':'__global__'}
+            'get_local_id':'threadIdx', '__kernel':'__global__',
+            '__local ': '__shared__', '__constant ': '__constant__'}
 
 #i'll get rid of this later, will keep so I do not loose track of what I'm doing
 #dictonary for changes on the main aplication
