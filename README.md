@@ -38,3 +38,15 @@ search for the word
 ```
 #translation#
 ```
+
+We have these examples below fully working:
+
+***Vector add:***
+```
+https://github.com/Guilhermeslucas/SDAccel_Examples/tree/master/getting_started/vadd
+```
+
+You can contribute to the software forking it, asking for pull request,
+sending me more OpenCL and CUDA tips. For now, if you have some code
+with the same function written in OpenCL and CUDA, It would help me
+a lot.
