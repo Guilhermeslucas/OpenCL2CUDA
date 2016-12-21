@@ -41,7 +41,7 @@ search for the word
 
 We have these examples below fully working:
 
-***Vector add:***
+***-Vector add:***
 ```
 https://github.com/Guilhermeslucas/SDAccel_Examples/tree/master/getting_started/vadd
 ```
